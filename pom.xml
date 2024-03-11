@@ -15,6 +15,10 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<sonar.host.url>http://localhost:9000/</sonar.host.url>
+		<sonar.token>sqp_b098a0f88634312dfa90f17a61f8d15da1055b90</sonar.token>
+		<sonar.projectKey>proyecto-examen</sonar.projectKey>
+		<sonar.projectName>proyecto-examen</sonar.projectName>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -77,6 +81,30 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.8.0.2131</version>
 			</plugin>
 		</plugins>
 	</build>

@@ -7,6 +7,9 @@ import com.codigo.examen.repository.UsuarioRepository;
 import com.codigo.examen.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -76,5 +79,15 @@ public class UsuarioServiceImpl implements UsuarioService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                return usuarioRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+            }
+        };
     }
 }
